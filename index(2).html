@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SEC Travel - Tour Tây Ninh Long An</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-b from-blue-50 to-white text-gray-800">
+
+  <!-- Header -->
+  <header class="text-center p-6">
+    <p class="text-sm text-gray-500 mb-1">SEC Travel</p>
+    <h1 class="text-4xl md:text-5xl font-bold text-blue-800 mb-2">“Một hành trình – Hai miền ký ức”</h1>
+    <p class="text-lg text-gray-600">Tour 3N2Đ Khám phá Tây Ninh – Long An (2 – 3 triệu/người)</p>
+  </header>
+
+  <!-- Form đặt vé -->
+  <section class="px-6 mb-10">
+    <div class="max-w-xl mx-auto bg-white p-6 rounded-2xl shadow">
+      <h2 class="text-2xl font-bold text-blue-800 mb-4">Đặt tour online</h2>
+      <form action="thankyou.html" method="GET" class="space-y-4">
+        <input type="text" name="name" placeholder="Họ và tên" required class="w-full border p-2 rounded">
+        <input type="tel" name="phone" placeholder="Số điện thoại" required class="w-full border p-2 rounded">
+        <input type="email" name="email" placeholder="Email" required class="w-full border p-2 rounded">
+        <input type="date" name="date" required class="w-full border p-2 rounded">
+        <input type="number" name="guests" min="1" placeholder="Số lượng khách" required class="w-full border p-2 rounded">
+        <textarea name="note" placeholder="Ghi chú thêm" class="w-full border p-2 rounded"></textarea>
+        <button type="submit" class="bg-blue-700 hover:bg-blue-800 text-white px-6 py-3 rounded-lg font-bold w-full">Đặt tour ngay</button>
+      </form>
+      <div class="mt-6 text-center">
+        <p class="text-lg font-semibold">Hotline: <a href="tel:0912345678" class="text-blue-700">0912 345 678</a></p>
+        <p class="text-sm">Hoặc email: <a href="mailto:luuhoanghamay@gmail.com" class="text-blue-700">luuhoanghamay@gmail.com</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Khung đánh giá -->
+  <section class="px-6 mb-10">
+    <div class="max-w-xl mx-auto bg-white p-6 rounded-2xl shadow">
+      <h2 class="text-2xl font-bold text-blue-800 mb-4">Đánh giá của bạn</h2>
+      <form id="reviewForm" class="space-y-4">
+        <input type="text" id="reviewName" placeholder="Tên của bạn" required class="w-full border p-2 rounded">
+        <select id="reviewRating" class="w-full border p-2 rounded" required>
+          <option value="">Chọn số sao</option>
+          <option value="5">★★★★★ - 5 sao</option>
+          <option value="4">★★★★☆ - 4 sao</option>
+          <option value="3">★★★☆☆ - 3 sao</option>
+          <option value="2">★★☆☆☆ - 2 sao</option>
+          <option value="1">★☆☆☆☆ - 1 sao</option>
+        </select>
+        <textarea id="reviewComment" placeholder="Bình luận của bạn" class="w-full border p-2 rounded"></textarea>
+        <button type="submit" class="bg-blue-700 hover:bg-blue-800 text-white px-6 py-3 rounded-lg font-bold">Gửi đánh giá</button>
+      </form>
+      <div id="reviewsList" class="mt-6 space-y-4"></div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="text-center mt-6 p-4">
+    <p class="text-xs text-gray-400">sản phẩm của nhóm SEC</p>
+  </footer>
+
+  <!-- Nút chat nhanh -->
+  <div id="chatButton" class="fixed bottom-6 right-6 bg-blue-700 text-white p-4 rounded-full shadow cursor-pointer">💬</div>
+  <div id="chatBox" class="hidden fixed bottom-20 right-6 w-72 bg-white shadow-lg rounded-lg">
+    <div class="p-2 bg-blue-700 text-white rounded-t-lg">Chat nhanh</div>
+    <div id="chatMessages" class="p-2 h-40 overflow-y-auto text-sm"></div>
+    <div class="flex border-t">
+      <input id="chatInput" type="text" placeholder="Nhập tin nhắn..." class="flex-grow p-2 text-sm">
+      <button id="chatSend" class="p-2 bg-blue-700 text-white">Gửi</button>
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script>
+    // Toggle chat
+    document.getElementById("chatButton").addEventListener("click", () => {
+      document.getElementById("chatBox").classList.toggle("hidden");
+    });
+
+    // Gửi tin nhắn chat
+    document.getElementById("chatSend").addEventListener("click", () => {
+      const input = document.getElementById("chatInput");
+      if(input.value.trim() !== "") {
+        const msg = document.createElement("div");
+        msg.textContent = "Bạn: " + input.value;
+        document.getElementById("chatMessages").appendChild(msg);
+        input.value = "";
+      }
+    });
+
+    // Xử lý review
+    document.getElementById("reviewForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const name = document.getElementById("reviewName").value;
+      const rating = document.getElementById("reviewRating").value;
+      const comment = document.getElementById("reviewComment").value;
+      const div = document.createElement("div");
+      div.classList.add("p-2","border","rounded");
+      div.innerHTML = `<strong>${name}</strong> - ${"★".repeat(rating)}<br>${comment}`;
+      document.getElementById("reviewsList").appendChild(div);
+      this.reset();
+    });
+  </script>
+</body>
+</html>
